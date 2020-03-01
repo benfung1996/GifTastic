@@ -66,29 +66,37 @@
                     var dogImage = $("<img>");
 
                     dogImage.attr("src", results[i].images.fixed_height.url);
-
-                    gifDiv.prepend(p);
+                    dogImage.attr("data-still", results[i].images.fixed_height_still.url);
+                    dogImage.attr("data-animate", results[i].images.fixed_height.url);
+                    dogImage.attr("data-state", "still");
+                    dogImage.addClass("gif");
 
                     gifDiv.prepend(dogImage);
+                    gifDiv.prepend(p);
 
                     $("#gifHere").prepend(gifDiv);
                 };
                 
-                // var state = $(this).attr("data-state");
-                // console.log(state);
-                
-                // if (state === "still") {
-                //     $(this).attr("data-state", "animate");
-                //     $(this).attr("src", $(this).attr("data-animate"));
-                // }
+                $(".gif").on("click", function() {
 
-                // else {
-                //     $(this).attr("data-state", "still");
-                //     $(this).attr("src", $(this).attr("data-still"));
-                // }
+                var state = $(this).attr("data-state");
+
+                    console.log(state);
+                    
+                    if (state === "still") {
+                        $(this).attr("data-state", "animate");
+                        $(this).attr("src", $(this).attr("data-animate"));
+                    }
+
+                    else {
+                        $(this).attr("data-state", "still");
+                        $(this).attr("src", $(this).attr("data-still"));
+                    }
         
                 });
+
             });
+        });
 
     </script>
 </body>
