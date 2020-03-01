@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>GifTastic</title>
+</head>
+<body>
+    <div id="buttons">
+
+        <button data-dog="Corgi">
+            Corgi
+        </button>
+
+        <button data-dog="Husky">
+            Husky
+        </button>
+
+        <button data-dog="Labrador">
+            Labrador
+        </button>
+
+        <button data-dog="Shiba">
+            Shiba
+        </button>
+
+        <button data-dog="French Bull">
+            French Bull
+        </button>
+
+        <button data-dog="Beagle">
+            Beagle
+        </button>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    $("button").on("click", function() {
+        var dog = $(this).attr("data-dog");
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        dog + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+
+        $.ajax({
+        url: queryURL,
+        method: "GET"
+        })
+        
+        .then(function(response) {
+
+            console.log(response);
+
+            var results = response.data;
+
+            var state = $(this).attr("data-state");
+            console.log(state);
+            
+            if (state === "still") {
+                $(this).attr("data-state", "animate");
+                $(this).attr("src", $(this).attr("data-animate"));
+            }
+
+            else {
+                $(this).attr("data-state", "still");
+                $(this).attr("src", $(this).attr("data-still"));
+            }
+    
+            });
+        });
+
+    </script>
+</body>
+</html>
