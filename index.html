@@ -32,44 +32,63 @@
         <button data-dog="Beagle">
             Beagle
         </button>
+    
+    <div id="gifHere">
+    </div>
 
-
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
-    $("button").on("click", function() {
-        var dog = $(this).attr("data-dog");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        dog + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+        $("button").on("click", function() {
+            var dog = $(this).attr("data-dog");
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+            dog + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
 
-        $.ajax({
-        url: queryURL,
-        method: "GET"
-        })
-        
-        .then(function(response) {
-
-            console.log(response);
-
-            var results = response.data;
-
-            var state = $(this).attr("data-state");
-            console.log(state);
+            $.ajax({
+            url: queryURL,
+            method: "GET"
+            })
             
-            if (state === "still") {
-                $(this).attr("data-state", "animate");
-                $(this).attr("src", $(this).attr("data-animate"));
-            }
+            .then(function(response) {
 
-            else {
-                $(this).attr("data-state", "still");
-                $(this).attr("src", $(this).attr("data-still"));
-            }
-    
+                console.log(response);
+
+                var results = response.data;
+
+                for (var i = 0; i < results.length; i++) {
+
+                    var gifDiv = $("<div>");
+
+                    var rating = results[i].rating;
+
+                    var p = $("<p>").text("Rating: " + rating);
+
+                    var dogImage = $("<img>");
+
+                    dogImage.attr("src", results[i].images.fixed_height.url);
+
+                    gifDiv.prepend(p);
+
+                    gifDiv.prepend(dogImage);
+
+                    $("#gifHere").prepend(gifDiv);
+                };
+                
+                // var state = $(this).attr("data-state");
+                // console.log(state);
+                
+                // if (state === "still") {
+                //     $(this).attr("data-state", "animate");
+                //     $(this).attr("src", $(this).attr("data-animate"));
+                // }
+
+                // else {
+                //     $(this).attr("data-state", "still");
+                //     $(this).attr("src", $(this).attr("data-still"));
+                // }
+        
+                });
             });
-        });
 
     </script>
 </body>
