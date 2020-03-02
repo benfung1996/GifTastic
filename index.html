@@ -29,7 +29,9 @@
 
             var dogs = ["Corgi", "Husky", "Labrador", "Shiba", "French Bull", "Beagle"];
             
-            $(".dog").on("click", displayDog());
+            // $(".dog").on("click", displayDog());
+
+            $(document).on("click", ".dog", displayDog);
             
             function displayDog() {
 
@@ -66,7 +68,7 @@
                         gifDiv.prepend(p);
 
                         $("#gifHere").prepend(gifDiv);
-                    };
+                    };      
                     
                     $(".gif").on("click", function() {
 
@@ -85,6 +87,9 @@
                         }
             
                     });
+
+                });
+            };
 
                     function renderBtn() {
 
@@ -111,11 +116,9 @@
                         renderBtn();
                     });
 
-                    $(document.body).on("click", ".dog", displayDog);
-
                     renderBtn();
-                });
-            };
+            //     });
+            // };
 
         </script>
 
